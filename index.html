@@ -1,164 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Be My Valentine? 💕</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .container {
-            text-align: center;
-            background: white;
-            padding: 60px 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
-            max-width: 500px;
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            color: #ff1493;
-            margin-bottom: 30px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        .hearts {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        button {
-            padding: 15px 40px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        #yesBtn {
-            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
-            color: white;
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
-        }
-
-        #noBtn {
-            background: #f0f0f0;
-            color: #666;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .response {
-            margin-top: 30px;
-            font-size: 1.5em;
-            color: #ff1493;
-            font-weight: bold;
-            display: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .celebration {
-            display: none;
-            font-size: 4em;
-            animation: celebrate 1s ease-in-out;
-        }
-
-        @keyframes celebrate {
-            0% {
-                transform: scale(0) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.2) rotate(180deg);
-            }
-            100% {
-                transform: scale(1) rotate(360deg);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How much do you miss me? 💕</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffe3ec;
+    font-family: "Trebuchet MS", sans-serif;
+    text-align: center;
+    overflow: hidden;
+  }
+  .otter { width: 240px; max-width: 80vw; height: auto; border-radius: 16px; }
+  h1 { color: #c2185b; margin: 16px 12px; }
+  .buttons { display: flex; gap: 20px; align-items: center; justify-content: center; }
+  button {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #fff;
+    font-family: inherit;
+  }
+  #yes { background: #e91e63; }
+  #no { background: #9e9e9e; }
+  #celebrate { font-size: 2.5rem; margin-top: 20px; display: none; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="hearts">
-            <img src="teddy_bear.gif" alt="Teddy Bear" style="width: 200px; height: auto;">
-        </div>
-        <h1>Will You Be My Valentine?</h1>
-        
-        <div class="buttons">
-            <button id="yesBtn">Yes :)</button>
-            <button id="noBtn">No</button>
-        </div>
+  <img class="otter" src="https://media1.tenor.com/m/5Ro1cyoNZKYAAAAC/otter-otter-love.gif" alt="Two cute otters hugging">
+  <h1 id="question">How much do you miss me?</h1>
+  <div class="buttons">
+    <button id="yes">SOOOOO MUCH</button>
+    <button id="no">eh not much</button>
+  </div>
+  <div id="celebrate">🎉🎉🎉</div>
 
-        <div class="response" id="response"></div>
-        <div class="celebration" id="celebration">🎉🎉🎉</div>
-    </div>
+<script>
+  const yes = document.getElementById('yes');
+  const no = document.getElementById('no');
 
-    <script>
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const response = document.getElementById('response');
-        const celebration = document.getElementById('celebration');
+  function dodge() {
+    // Switch to fixed positioning so it can jump anywhere on screen
+    no.style.position = 'fixed';
+    const maxX = window.innerWidth - no.offsetWidth - 10;
+    const maxY = window.innerHeight - no.offsetHeight - 10;
+    no.style.left = Math.max(10, Math.random() * maxX) + 'px';
+    no.style.top = Math.max(10, Math.random() * maxY) + 'px';
+  }
 
-        yesBtn.addEventListener('click', () => {
-            response.textContent = "WOOHOOOOOOOOO!";
-            response.style.display = 'block';
-            celebration.style.display = 'block';
-            
-            // Hide buttons
-            yesBtn.style.display = 'none';
-            noBtn.style.display = 'none';
-        });
+  no.addEventListener('mouseover', dodge);
+  no.addEventListener('touchstart', function (e) { e.preventDefault(); dodge(); });
+  no.addEventListener('click', function (e) { e.preventDefault(); dodge(); });
 
-        noBtn.addEventListener('mouseover', () => {
-            // Get random position
-            const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-            const maxY = window.innerHeight - noBtn.offsetHeight - 40;
-            
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            // Move the button to random position
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.top = randomY + 'px';
-        });
-    </script>
+  yes.addEventListener('click', function () {
+    document.getElementById('celebrate').style.display = 'block';
+    no.style.display = 'none';
+  });
+</script>
 </body>
 </html>
